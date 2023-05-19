@@ -22,10 +22,8 @@
       </svg>
     </button>
     <div
-      :class="[
-        'bg-white text-base rounded shadow-sm mt-2 py-2 px-4',
-        { hidden: !isDrowdownVisible }
-      ]"
+      v-show="isDrowdownVisible"
+      class="bg-white text-base rounded shadow-sm mt-2 py-2 px-4"
       id="dropdown"
     >
       <ul class="p-2 space-y-3" aria-labelledby="dropdown">
@@ -38,19 +36,15 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { defineProps, PropType, ref } from 'vue'
 
 defineProps({
-  items: {
-    type: Array,
-    default: () => []
-  },
   buttonText: {
     type: String,
     default: 'Dropdown button'
   },
   items: {
-    type: Array,
+    type: Array as PropType<string[]>,
     default: () => ['item1', 'item2']
   }
 })
