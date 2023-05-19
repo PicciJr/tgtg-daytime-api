@@ -38,6 +38,9 @@ const props = defineProps({
 
 onMounted(() => {
   const datepickerEl = document.getElementById(props.datePickerId)
-  new Datepicker(datepickerEl)
+  new Datepicker(datepickerEl, {
+    autohide: true,
+    format: 'dd/mm/yyyy'
+  })
 })
 </script>
