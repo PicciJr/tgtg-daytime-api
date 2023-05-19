@@ -2,16 +2,17 @@
 import { RouterLink, RouterView } from 'vue-router'
 import DatePicker from './components/DatePicker.vue'
 import Dropdown from './components/Dropdown.vue'
+import Button from './components/Button.vue'
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto border p-4 bg-green-50 rounded-lg mt-24 flex flex-col gap-4">
+  <div class="flex flex-col max-w-2xl gap-4 p-4 mx-auto mt-24 border rounded-lg bg-green-50">
     <!-- Datepicker -->
     <DatePicker />
     <!-- Filter -->
     <Dropdown button-text="Filter type" />
     <!-- Terms and conditions -->
-    <div class="flex gap-3 items-center">
+    <div class="flex items-center gap-3">
       <input
         id="default-checkbox"
         type="checkbox"
@@ -25,11 +26,6 @@ import Dropdown from './components/Dropdown.vue'
     </div>
 
     <!-- Submit button -->
-    <button
-      type="button"
-      class="text-white bg-green-700 hover:bg-greeb-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800 w-fit"
-    >
-      Get results
-    </button>
+    <Button text="Get results" />
   </div>
 </template>
