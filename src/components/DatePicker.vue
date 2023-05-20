@@ -20,14 +20,14 @@
       datepicker
       type="text"
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      placeholder="dd/mm/aaaa"
+      placeholder="dd-mm-aaaa"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import Datepicker from 'flowbite-datepicker/Datepicker'
-import { defineProps, onMounted } from 'vue'
+import { defineEmits, defineProps, onMounted } from 'vue'
 
 const props = defineProps({
   datePickerId: {
@@ -36,11 +36,17 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['date-updated'])
+
 onMounted(() => {
   const datepickerEl = document.getElementById(props.datePickerId)
   new Datepicker(datepickerEl, {
     autohide: true,
-    format: 'dd/mm/yyyy'
+    format: 'dd-mm-yyyy'
+  })
+
+  datepickerEl.addEventListener('changeDate', (e) => {
+    emit('date-updated', e.target.value)
   })
 })
 </script>
