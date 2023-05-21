@@ -9,7 +9,6 @@ import { useStore } from '@/stores'
 const props = defineProps({
   date: {
     type: String,
-    required: true,
     default: null
   }
 })

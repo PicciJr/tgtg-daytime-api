@@ -26,7 +26,6 @@ const resetFilterApplied = () => (filterKey.value = null)
 const props = defineProps({
   data: {
     type: Object as PropType<SunriseSunsetApiDTO>,
-    required: true,
     default: null
   },
   error: {
