@@ -27,7 +27,7 @@
     </button>
     <div
       v-show="isDrowdownVisible"
-      class="px-4 py-2 mt-2 text-base bg-white rounded shadow-sm"
+      class="px-4 py-2 mt-2 text-base font-bold rounded shadow-sm bg-tgtg-light text-tgtg-dark"
       id="dropdown"
     >
       <ul class="p-2 space-y-3" aria-labelledby="dropdown">

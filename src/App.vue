@@ -11,7 +11,7 @@ const setDate = (dateSelected: string) => (date.value = dateSelected)
 </script>
 
 <template>
-  <div class="flex flex-col max-w-2xl gap-4 p-4 mx-auto mt-24 border rounded-lg bg-green-50">
+  <div class="flex flex-col max-w-xl gap-4 p-4 mx-auto mt-24 border rounded-lg bg-tgtg-dark">
     <!-- Daytime provider -->
     <DaytimeProvider :date="date" v-slot="{ getResults, data, error }">
       <DaytimeForm :data="data" :error="error" @submit="getResults" @date-updated="setDate" />

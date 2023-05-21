@@ -82,9 +82,11 @@ const emit = defineEmits(['submit', 'date-updated'])
 </script>
 
 <template>
-  <form class="flex flex-col gap-3">
+  <form class="flex flex-col gap-3 text-white">
+    <!-- Logo image -->
+    <img loading="lazy" src="../assets/img/tgtg-logo.svg" class="self-center w-48 h-48" />
     <!-- Datepicker -->
-    <DatePicker @date-updated="handleDateUpdated" />
+    <DatePicker @date-updated="handleDateUpdated" class="w-fit" />
     <!-- Filter -->
     <Dropdown
       button-text="Filter type"
@@ -98,12 +100,10 @@ const emit = defineEmits(['submit', 'date-updated'])
         id="default-checkbox"
         type="checkbox"
         :value="areTermsAndConditionsAccepted"
-        class="w-4 h-4 text-gray-700 bg-gray-100 border-gray-300 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+        class="w-4 h-4 border-gray-300 rounded text-tgtg-light bg-tgtg-dark focus:ring-gray-500 focus:ring-2"
         @change="areTermsAndConditionsAccepted = !areTermsAndConditionsAccepted"
       />
-      <label
-        for="default-checkbox"
-        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+      <label for="default-checkbox" class="ml-2 text-sm font-medium text-white"
         >I accept the terms and conditions</label
       >
     </div>

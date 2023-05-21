@@ -1,5 +1,5 @@
 <template>
-  <div class="relative max-w-sm">
+  <div class="relative">
     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
       <svg
         aria-hidden="true"
