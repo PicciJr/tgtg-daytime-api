@@ -3,9 +3,10 @@ import DatePicker from './DatePicker.vue'
 import Dropdown from './Dropdown.vue'
 import Button from './Button.vue'
 import DaytimeInfoList from './DaytimeInfoList.vue'
-import { computed, defineEmits, defineProps, onMounted, PropType, ref } from 'vue'
+import { computed, defineEmits, defineProps, PropType, ref } from 'vue'
 import { SunriseSunsetApiDTO } from '@/Daytime/Dtos/SunriseSunsetApiDTO'
 import { DropdownItem } from './Dropdown.vue'
+import ErrorMessage from './ErrorMessage.vue'
 
 const areTermsAndConditionsAccepted = ref(false)
 
@@ -26,6 +27,10 @@ const props = defineProps({
   data: {
     type: Object as PropType<SunriseSunsetApiDTO>,
     required: true,
+    default: null
+  },
+  error: {
+    type: Object,
     default: null
   }
 })
@@ -111,6 +116,11 @@ const emit = defineEmits(['submit', 'date-updated'])
       id="submit-button"
     />
     <!-- Results -->
-    <DaytimeInfoList :data="filteredData" />
+    <DaytimeInfoList v-if="!error" :data="filteredData" />
+    <!-- Error  message-->
+    <ErrorMessage
+      v-else
+      message="Oooops, there was an issue retrieving the data. Please try again later"
+    />
   </form>
 </template>

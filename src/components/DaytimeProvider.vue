@@ -14,16 +14,24 @@ const props = defineProps({
 })
 const { lat, lng } = useLocationProvider().getCurrentPosition()
 const data = ref(null)
+const error = ref(null)
 const loading = ref(false)
 
 const fetchSunLightTimes = async () => {
   const daytimeRepository = new SunriseSunsetApi()
   if (props.date) daytimeRepository.withDate(props.date)
-  const response = await useDaytimeProvider<SunriseSunsetApiDTO>(daytimeRepository, lat, lng)
-  if (response.status === 'OK') data.value = response.results
+  try {
+    const response = await useDaytimeProvider<SunriseSunsetApiDTO>(daytimeRepository, lat, lng)
+    if (response.status === 'OK') {
+      data.value = response.results
+      error.value = null
+    }
+  } catch (err) {
+    error.value = err
+  }
 }
 </script>
 
 <template>
-  <slot :data="data" :loading="loading" :getResults="fetchSunLightTimes" />
+  <slot :data="data" :error="error" :loading="loading" :getResults="fetchSunLightTimes" />
 </template>
