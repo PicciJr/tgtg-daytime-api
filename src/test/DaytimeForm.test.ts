@@ -35,13 +35,16 @@ describe('DaytimeForm', () => {
     render(DaytimeForm, {
       global: {
         stubs
+      },
+      props: {
+        loading: false
       }
     })
     const checkbox = document.querySelector('input[type="checkbox"]')
     await fireEvent.change(checkbox)
     const button = document.querySelector('#submit-button')
     expect(button.disabled).toEqual(false)
-    expect(checkbox.value).toEqual('true')
+    expect(checkbox.checked).toEqual(true)
   })
 
   it('should filter the results displayed when a filter has been applied by the user', async () => {
