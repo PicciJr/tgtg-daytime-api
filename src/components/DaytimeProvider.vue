@@ -5,6 +5,7 @@ import SunriseSunsetApi from '@/Daytime/Infrastructure/SunriseSunsetApi'
 import { SunriseSunsetApiDTO } from '@/Daytime/Dtos/SunriseSunsetApiDTO'
 import { useLocationProvider } from '../composables/useLocationProvider'
 import { useStore } from '@/stores'
+import { inject } from 'vue'
 
 const props = defineProps({
   date: {
@@ -16,6 +17,7 @@ const props = defineProps({
 const latitude = ref(null)
 const longitude = ref(null)
 const store = useStore()
+const daytimeRepository = inject('daytimeRepository') as SunriseSunsetApi
 
 onBeforeMount(() => {
   useLocationProvider()
@@ -32,7 +34,6 @@ const error = ref(null)
 const loading = ref(true)
 
 const fetchSunLightTimes = async () => {
-  const daytimeRepository = new SunriseSunsetApi()
   if (props.date) daytimeRepository.withDate(props.date)
   try {
     loading.value = true
