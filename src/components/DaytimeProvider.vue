@@ -4,6 +4,7 @@ import useDaytimeProvider from '@/Daytime/Application/useDaytimeProvider'
 import SunriseSunsetApi from '@/Daytime/Infrastructure/SunriseSunsetApi'
 import { SunriseSunsetApiDTO } from '@/Daytime/Dtos/SunriseSunsetApiDTO'
 import { useLocationProvider } from '../composables/useLocationProvider'
+import { useStore } from '@/stores'
 
 const props = defineProps({
   date: {
@@ -15,6 +16,7 @@ const props = defineProps({
 
 const latitude = ref(null)
 const longitude = ref(null)
+const store = useStore()
 
 onBeforeMount(() => {
   useLocationProvider()
@@ -41,6 +43,7 @@ const fetchSunLightTimes = async () => {
     )
     if (response.status === 'OK') {
       data.value = response.results
+      store.setDaytimeResults(response.results)
       error.value = null
     }
   } catch (err) {
