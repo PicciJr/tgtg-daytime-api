@@ -35,6 +35,7 @@ const fetchSunLightTimes = async () => {
   const daytimeRepository = new SunriseSunsetApi()
   if (props.date) daytimeRepository.withDate(props.date)
   try {
+    loading.value = true
     const response = await useDaytimeProvider<SunriseSunsetApiDTO>(
       daytimeRepository,
       latitude.value,
@@ -45,8 +46,10 @@ const fetchSunLightTimes = async () => {
       store.setDaytimeResults(response.results)
       error.value = null
     }
+    loading.value = false
   } catch (err) {
     error.value = err
+    loading.value = false
   }
 }
 </script>

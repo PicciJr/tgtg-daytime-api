@@ -116,6 +116,7 @@ const emit = defineEmits(['submit', 'date-updated'])
       text="Get results"
       @click="handleGetResults"
       :is-disabled="!areTermsAndConditionsAccepted || loading"
+      :is-loading="loading"
       id="submit-button"
     />
     <!-- Results -->
