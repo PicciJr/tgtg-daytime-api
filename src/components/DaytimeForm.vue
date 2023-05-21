@@ -48,7 +48,7 @@ const filteredData = computed(() => {
 
 const filterKey = ref(null)
 
-const handleFilterDayTimeData = (filterKeySelected) => (filterKey.value = filterKeySelected)
+const handleFilterDayTimeData = (filterKeySelected: string) => (filterKey.value = filterKeySelected)
 
 const dayTimeOptions = ref<DropdownItem[]>([
   {
