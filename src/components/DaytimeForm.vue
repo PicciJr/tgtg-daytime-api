@@ -32,6 +32,10 @@ const props = defineProps({
   error: {
     type: Object,
     default: null
+  },
+  loading: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -99,7 +103,7 @@ const emit = defineEmits(['submit', 'date-updated'])
       <input
         id="default-checkbox"
         type="checkbox"
-        :value="areTermsAndConditionsAccepted"
+        :checked="areTermsAndConditionsAccepted"
         class="w-4 h-4 border-gray-300 rounded text-tgtg-light bg-tgtg-dark focus:ring-gray-500 focus:ring-2"
         @change="areTermsAndConditionsAccepted = !areTermsAndConditionsAccepted"
       />
@@ -112,7 +116,7 @@ const emit = defineEmits(['submit', 'date-updated'])
     <Button
       text="Get results"
       @click="handleGetResults"
-      :is-disabled="!areTermsAndConditionsAccepted"
+      :is-disabled="!areTermsAndConditionsAccepted || loading"
       id="submit-button"
     />
     <!-- Results -->

@@ -5,15 +5,22 @@ export const useLocationProvider = () => {
         lat: 38.907192,
         lng: -77.036873
       }
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          return {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            resolve({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            })
+          },
+          (error) => {
+            resolve(defaultPosition)
+          },
+          {
+            timeout: 1000
           }
-        })
-      }
-      return defaultPosition
+        )
+      })
     }
   }
 }
