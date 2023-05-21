@@ -3,14 +3,24 @@ import DatePicker from './DatePicker.vue'
 import Dropdown from './Dropdown.vue'
 import Button from './Button.vue'
 import DaytimeInfoList from './DaytimeInfoList.vue'
-import { defineEmits, defineProps, PropType, ref } from 'vue'
+import { computed, defineEmits, defineProps, onMounted, PropType, ref } from 'vue'
 import { SunriseSunsetApiDTO } from '@/Daytime/Dtos/SunriseSunsetApiDTO'
+import { DropdownItem } from './Dropdown.vue'
 
 const areTermsAndConditionsAccepted = ref(false)
+
+const areFilterOptionsDisabled = computed(() => !props.data)
 
 const handleDateUpdated = (dateSelected) => {
   emit('date-updated', dateSelected)
 }
+
+const handleGetResults = () => {
+  resetFilterApplied()
+  emit('submit')
+}
+
+const resetFilterApplied = () => (filterKey.value = null)
 
 const props = defineProps({
   data: {
@@ -20,6 +30,49 @@ const props = defineProps({
   }
 })
 
+const filteredData = computed(() => {
+  if (filterKey.value && props.data) {
+    const [key, value] = Object.entries(props.data).filter((item) => item[0] === filterKey.value)[0]
+    return { [key]: value }
+  }
+  return { ...props.data }
+})
+
+const filterKey = ref(null)
+
+const handleFilterDayTimeData = (filterKeySelected) => (filterKey.value = filterKeySelected)
+
+const dayTimeOptions = ref<DropdownItem[]>([
+  {
+    id: 'sunrise',
+    value: 'Sunrise'
+  },
+  {
+    id: 'sunset',
+    value: 'Sunset'
+  },
+  {
+    id: 'dawn',
+    value: 'Dawn'
+  },
+  {
+    id: 'dusk',
+    value: 'Dusk'
+  },
+  {
+    id: 'first_light',
+    value: 'First light'
+  },
+  {
+    id: 'last_light',
+    value: 'Last light'
+  },
+  {
+    id: 'golden_hour',
+    value: 'Golden hour'
+  }
+])
+
 const emit = defineEmits(['submit', 'date-updated'])
 </script>
 
@@ -28,7 +81,12 @@ const emit = defineEmits(['submit', 'date-updated'])
     <!-- Datepicker -->
     <DatePicker @date-updated="handleDateUpdated" />
     <!-- Filter -->
-    <Dropdown button-text="Filter type" />
+    <Dropdown
+      button-text="Filter type"
+      :items="dayTimeOptions"
+      :is-disabled="areFilterOptionsDisabled"
+      @click="handleFilterDayTimeData"
+    />
     <!-- Terms and conditions -->
     <div class="flex items-center gap-1">
       <input
@@ -48,10 +106,11 @@ const emit = defineEmits(['submit', 'date-updated'])
     <!-- Submit button -->
     <Button
       text="Get results"
-      @click="emit('submit')"
+      @click="handleGetResults"
       :is-disabled="!areTermsAndConditionsAccepted"
+      id="submit-button"
     />
     <!-- Results -->
-    <DaytimeInfoList v-if="props.data" :data="props.data" />
+    <DaytimeInfoList :data="filteredData" />
   </form>
 </template>

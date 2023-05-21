@@ -1,9 +1,13 @@
 <template>
   <div class="w-44">
     <button
-      class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
+      :class="[
+        'text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center',
+        { 'cursor-not-allowed opacity-30': isDisabled }
+      ]"
       type="button"
-      @click="toggleDropdown"
+      @click.prevent="toggleDropdown"
+      :disabled="isDisabled"
     >
       {{ buttonText }}
       <svg
@@ -23,12 +27,12 @@
     </button>
     <div
       v-show="isDrowdownVisible"
-      class="bg-white text-base rounded shadow-sm mt-2 py-2 px-4"
+      class="px-4 py-2 mt-2 text-base bg-white rounded shadow-sm"
       id="dropdown"
     >
       <ul class="p-2 space-y-3" aria-labelledby="dropdown">
         <li v-for="(item, index) in items" :key="index">
-          <button>{{ item }}</button>
+          <button @click.prevent="emit('click', item.id)">{{ item.value }}</button>
         </li>
       </ul>
     </div>
@@ -36,7 +40,12 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType, ref } from 'vue'
+import { defineProps, defineEmits, PropType, ref } from 'vue'
+
+export type DropdownItem = {
+  id: string
+  value: string
+}
 
 defineProps({
   buttonText: {
@@ -44,12 +53,23 @@ defineProps({
     default: 'Dropdown button'
   },
   items: {
-    type: Array as PropType<string[]>,
-    default: () => ['item1', 'item2']
+    type: Array as PropType<DropdownItem[]>,
+    default: () => [
+      {
+        id: 1,
+        value: 'item 1'
+      }
+    ]
+  },
+  isDisabled: {
+    type: Boolean,
+    default: true
   }
 })
 
 const isDrowdownVisible = ref(false)
+
+const emit = defineEmits(['click'])
 
 const toggleDropdown = () => {
   isDrowdownVisible.value = !isDrowdownVisible.value
