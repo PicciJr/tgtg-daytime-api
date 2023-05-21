@@ -1,5 +1,5 @@
 <template>
-  <div class="w-44">
+  <div>
     <button
       :class="[
         'text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center',

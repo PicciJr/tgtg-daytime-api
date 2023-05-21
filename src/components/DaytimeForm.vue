@@ -82,7 +82,7 @@ const emit = defineEmits(['submit', 'date-updated'])
 </script>
 
 <template>
-  <form class="flex flex-col gap-3 text-white">
+  <form class="flex flex-col items-center gap-3 text-white sm:items-start">
     <!-- Logo image -->
     <img loading="lazy" src="../assets/img/tgtg-logo.svg" class="self-center w-48 h-48" />
     <!-- Datepicker -->
