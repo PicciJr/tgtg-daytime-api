@@ -4,7 +4,7 @@
 
 # Steps required to run the project
 
-1 - Install dependencies with `npm install`
-2 - Run the project locally with `npm run dev`
-3 - Tests can be run with `npm run test`
+- 1. Install dependencies with `npm install`
+- 2. Run the project locally with `npm run dev`
+- 3. Tests can be run with `npm run test`
 
