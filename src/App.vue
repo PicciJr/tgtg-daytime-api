@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import DaytimeProvider from './components/DaytimeProvider.vue'
 import DaytimeForm from './components/DaytimeForm.vue'
-import { defineEmits, ref } from 'vue'
+import { ref } from 'vue'
 
-const emit = defineEmits(['get-results'])
 const date = ref(null)
 
 const setDate = (dateSelected: string) => (date.value = dateSelected)
