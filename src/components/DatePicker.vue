@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import Datepicker from 'flowbite-datepicker/Datepicker'
+
 import { defineEmits, defineProps, onMounted } from 'vue'
 
 const props = defineProps({
@@ -41,8 +42,11 @@ const emit = defineEmits(['date-updated'])
 onMounted(() => {
   const datepickerEl = document.getElementById(props.datePickerId)
   new Datepicker(datepickerEl, {
+    language: 'es',
     autohide: true,
-    format: 'dd-mm-yyyy'
+    format: 'dd-mm-yyyy',
+    todayBtn: true,
+    clearBtn: true
   })
 
   datepickerEl.addEventListener('changeDate', (e) => {
